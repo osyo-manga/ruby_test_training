@@ -102,7 +102,7 @@ $ git branch
 ```shell
 # 解答したファイルを追加
 $ git add spec/question/stdlib/string_spec.rb
-ruby_test_training $ git commit -m "解答を追加"
+$ git commit -m "解答を追加"
 [my_branch eff3716] 解答を追加
  1 file changed, 2 insertions(+), 2 deletions(-)
 ```
