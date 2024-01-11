@@ -282,10 +282,52 @@ RSpec.describe String do
       it { is_expected.to eq false }
     end
 
-    context "`substr` が `''` の場合" do
+    context "`substr` が空文字列の場合" do
       let(:substr) { "" }
 
       it { is_expected.to eq true }
+    end
+
+    context "`substr` が nil の場合" do
+      let(:substr) { nil }
+
+      it { expect { subject }.to raise_error TypeError }
+    end
+  end
+
+  describe "#+" do
+    subject { string + other }
+
+    let(:string) { "hoge" }
+
+    context "`other` が `'foo'` の場合" do
+      let(:other) { "foo" }
+
+      it { is_expected.to eq "hogefoo" }
+    end
+
+    context "`other` が空文字列の場合" do
+      let(:other) { "" }
+
+      it { is_expected.to eq "hoge" }
+    end
+
+    context "`other` が数値の場合" do
+      let(:other) { 42 }
+
+      it { expect { subject }.to raise_error TypeError }
+    end
+
+    context "`other` が nil の場合" do
+      let(:other) { nil }
+
+      it { expect { subject }.to raise_error TypeError }
+    end
+
+    context "`other` が Symbol の場合" do
+      let(:other) { :foo }
+
+      it { expect { subject }.to raise_error TypeError }
     end
   end
 end
