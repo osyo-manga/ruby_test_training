@@ -258,4 +258,34 @@ RSpec.describe String do
       end
     end
   end
+
+  describe "#include?" do
+    subject { string.include?(substr) }
+
+    let(:string) { "hogeほげ" }
+
+    context "`substr` が `'hoge'` の場合" do
+      let(:substr) { "hoge" }
+
+      it { is_expected.to eq true }
+    end
+
+    context "`substr` が `'ほげ'` の場合" do
+      let(:substr) { "ほげ" }
+
+      it { is_expected.to eq true }
+    end
+
+    context "`substr` が `'foo'` の場合" do
+      let(:substr) { "foo" }
+
+      it { is_expected.to eq false }
+    end
+
+    context "`substr` が `''` の場合" do
+      let(:substr) { "" }
+
+      it { is_expected.to eq true }
+    end
+  end
 end
