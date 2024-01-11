@@ -63,7 +63,7 @@ describe "#length" do
 end
 ```
 
-## 4. テストを実行する
+### 4. テストを実行する
 
 テストを実行してパスすれば OK
 
@@ -71,4 +71,34 @@ end
 $ rake spec
 ```
 
+
+## 問題を更新する
+
+### 1. 作業用のブランチを切る
+
+```shell
+# my_branch という名前で新しいブランチを切る
+$ git switch -c my_branch
+Switched to a new branch 'my_branch'
+# ブランチを確認
+$ git branch
+  master
+* my_branch
+```
+
+### 2. 解答したファイルをコミットする
+
+```shell
+# 解答したファイルを追加
+$ git add spec/question/stdlib/string_spec.rb
+ruby_test_training $ git commit -m "解答を追加"
+[my_branch eff3716] 解答を追加
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+```
+
+### 3. 最新の問題を取り込む
+
+```shell
+$ git pull --rebase origin master
+```
 
