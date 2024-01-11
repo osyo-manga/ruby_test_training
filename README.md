@@ -26,13 +26,24 @@ $ git clone https://github.com/osyo-manga/ruby_test_training
 $ cd ruby_test_training
 ```
 
-### 2. gem のインストール
+### 2. Ruby のインストール
+
+NOTE: 予め rbenv をインストールしておく必要があります。
+
+```shell
+$ rbenv install
+```
+
+### 3. gem のインストール
 
 ```shell
 $ bundle install
+# gem がインストールできているかの確認
+$ bundle exec rake --version
+rake, version 12.3.3
 ```
 
-### 3. テストの修正
+### 4. テストの修正
 
 修正したいテストの `xcontext` を `context` に変えて `___` の部分をテストが通るように置き換える。
 元のテストが以下のような場合
@@ -63,7 +74,7 @@ describe "#length" do
 end
 ```
 
-### 4. テストを実行する
+### 5. テストを実行する
 
 テストを実行してパスすれば OK
 
