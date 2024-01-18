@@ -138,8 +138,8 @@ RSpec.describe String do
 
     xcontext "`char` の値が nil の場合" do
       let(:string) { "hogehoge" }
-      let(:char) { nil }
-      it { expect { string.count(char) }.to raise_error TypeError }
+      let(:char) { ___ }
+      it { expect { string.count(char) }.to raise_error ___ }
     end
   end
 
