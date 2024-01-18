@@ -336,4 +336,51 @@ RSpec.describe String do
       it { expect { subject }.to raise_error ___ }
     end
   end
+
+  describe "#chomp" do
+    subject { string.chomp(*args) }
+
+    let(:args) { [] }
+
+    context "末尾に改行コードがある場合" do
+      let(:string) { "hoge\n" }
+
+      it { is_expected.to eq ___ }
+    end
+
+    context "先頭と末尾に改行コードが複数ある場合" do
+      let(:string) { "\nhoge\n" }
+
+      it { is_expected.to eq ___ }
+    end
+
+    context "末尾に改行コードが複数ある場合" do
+      let(:string) { ___ }
+
+      it { is_expected.to eq "hoge\n" }
+    end
+
+    context "引数がある場合" do
+      context "'' を渡された場合" do
+        let(:args) { [""] }
+        let(:string) { "hoge\n\n\n" }
+
+        it { is_expected.to eq ___ }
+      end
+
+      context "nil を渡された場合" do
+        let(:args) { [nil] }
+        let(:string) { ___ }
+
+        it { is_expected.to eq "hoge\n" }
+      end
+
+      context "* を渡された場合" do
+        let(:args) { ["*"] }
+        let(:string) { ___ }
+
+        it { is_expected.to eq "**hoge*" }
+      end
+    end
+  end
 end
