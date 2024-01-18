@@ -383,4 +383,50 @@ RSpec.describe String do
       end
     end
   end
+
+  describe "#next" do
+    subject { string.next }
+
+    context "文字の場合" do
+      let(:string) { "abc" }
+
+      it { is_expected.to eq ___ }
+    end
+
+    context "数値の場合" do
+      let(:string) { ___ }
+
+      it { is_expected.to eq "43" }
+    end
+
+    context "記号の場合" do
+      let(:string) { "*" }
+
+      it { is_expected.to eq ___ }
+    end
+
+    context "ZZZZ の場合" do
+      let(:string) { ___ }
+
+      it { is_expected.to eq "AAAAA" }
+    end
+
+    context "999 の場合" do
+      let(:string) { "999" }
+
+      it { is_expected.to eq ___ }
+    end
+
+    context "文字と数値が混ざってる場合" do
+      let(:string) { "9Z" }
+
+      it { is_expected.to eq ___ }
+    end
+
+    context "文字と記号が混ざってる場合" do
+      let(:string) { "3.3.0" }
+
+      it { is_expected.to eq ___ }
+    end
+  end
 end
