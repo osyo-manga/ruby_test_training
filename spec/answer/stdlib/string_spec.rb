@@ -193,7 +193,7 @@ RSpec.describe String do
   describe "#insert" do
     subject { string.insert(pos, other) }
 
-    context "-3番目に `mami` を挿入した場合" do
+    context "-3番目に `mado` を挿入した場合" do
       let(:string) { "homu" }
       let(:pos) { -3 }
       let(:other) { "mado" }
