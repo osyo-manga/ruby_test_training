@@ -282,16 +282,10 @@ RSpec.describe String do
       it { is_expected.to eq ___ }
     end
 
-    xcontext "`substr` が `''` の場合" do
+    xcontext "`substr` が空文字列の場合" do
       let(:substr) { "" }
 
       it { is_expected.to eq ___ }
-    end
-
-    xcontext "`substr` が空文字列の場合" do
-      let(:substr) { ___ }
-
-      it { is_expected.to eq true }
     end
 
     xcontext "`substr` が nil の場合" do
