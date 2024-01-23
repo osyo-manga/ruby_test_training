@@ -336,40 +336,40 @@ RSpec.describe String do
 
     let(:args) { [] }
 
-    context "末尾に改行コードがある場合" do
+    xcontext "末尾に改行コードがある場合" do
       let(:string) { "hoge\n" }
 
       it { is_expected.to eq ___ }
     end
 
-    context "先頭と末尾に改行コードが複数ある場合" do
+    xcontext "先頭と末尾に改行コードが複数ある場合" do
       let(:string) { "\nhoge\n" }
 
       it { is_expected.to eq ___ }
     end
 
-    context "末尾に改行コードが複数ある場合" do
+    xcontext "末尾に改行コードが複数ある場合" do
       let(:string) { ___ }
 
       it { is_expected.to eq "hoge\n" }
     end
 
     context "引数がある場合" do
-      context "'' を渡された場合" do
+      xcontext "'' を渡された場合" do
         let(:args) { [""] }
         let(:string) { "hoge\n\n\n" }
 
         it { is_expected.to eq ___ }
       end
 
-      context "nil を渡された場合" do
+      xcontext "nil を渡された場合" do
         let(:args) { [nil] }
         let(:string) { ___ }
 
         it { is_expected.to eq "hoge\n" }
       end
 
-      context "* を渡された場合" do
+      xcontext "* を渡された場合" do
         let(:args) { ["*"] }
         let(:string) { ___ }
 
@@ -381,43 +381,43 @@ RSpec.describe String do
   describe "#next" do
     subject { string.next }
 
-    context "文字の場合" do
+    xcontext "文字の場合" do
       let(:string) { "abc" }
 
       it { is_expected.to eq ___ }
     end
 
-    context "数値の場合" do
+    xcontext "数値の場合" do
       let(:string) { ___ }
 
       it { is_expected.to eq "43" }
     end
 
-    context "記号の場合" do
+    xcontext "記号の場合" do
       let(:string) { "*" }
 
       it { is_expected.to eq ___ }
     end
 
-    context "ZZZZ の場合" do
+    xcontext "ZZZZ の場合" do
       let(:string) { ___ }
 
       it { is_expected.to eq "AAAAA" }
     end
 
-    context "999 の場合" do
+    xcontext "999 の場合" do
       let(:string) { "999" }
 
       it { is_expected.to eq ___ }
     end
 
-    context "文字と数値が混ざってる場合" do
+    xcontext "文字と数値が混ざってる場合" do
       let(:string) { "9Z" }
 
       it { is_expected.to eq ___ }
     end
 
-    context "文字と記号が混ざってる場合" do
+    xcontext "文字と記号が混ざってる場合" do
       let(:string) { "3.3.0" }
 
       it { is_expected.to eq ___ }
