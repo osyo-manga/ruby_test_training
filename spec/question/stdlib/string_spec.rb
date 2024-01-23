@@ -423,4 +423,56 @@ RSpec.describe String do
       it { is_expected.to eq ___ }
     end
   end
+
+  describe "#start_with?" do
+    subject { string.start_with?(*args) }
+
+    let(:string) { "import-001" }
+
+    xcontext "先頭にマッチする文字列を引数に渡した場合" do
+      let(:args) { ["import"] }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "先頭にマッチしない文字列を引数に渡した場合" do
+      let(:args) { ["export"] }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "先頭にマッチする正規表現を引数に渡した場合" do
+      let(:args) { [/\w+/] }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "先頭にマッチしない正規表現を引数に渡した場合" do
+      let(:args) { [/\d+/] }
+
+      it { is_expected.to eq ___ }
+    end
+
+    context "引数が複数ある場合" do
+      let(:args) { ["import", /\d+/] }
+
+      xcontext "第一引数にマッチする場合" do
+        let(:string) { "import-001" }
+
+        it { is_expected.to eq ___ }
+      end
+
+      xcontext "第二引数にマッチする場合" do
+        let(:string) { "001-import" }
+
+        it { is_expected.to eq ___ }
+      end
+
+      xcontext "どの引数にもマッチしない場合" do
+        let(:string) { "export-001" }
+
+        it { is_expected.to eq ___ }
+      end
+    end
+  end
 end
