@@ -475,4 +475,50 @@ RSpec.describe String do
       end
     end
   end
+
+  describe "#end_with?" do
+    subject { string.end_with?(*args) }
+
+    let(:string) { "sheet.csv" }
+
+    xcontext "末尾にマッチする文字列を引数に渡した場合" do
+      let(:args) { [".csv"] }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "末尾にマッチしない文字列を引数に渡した場合" do
+      let(:args) { [".xlsx"] }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "末尾にマッチする正規表現を引数に渡した場合" do
+      let(:args) { [/\w+/] }
+
+      it { expect { subject }.to raise_error ___ }
+    end
+
+    context "引数が複数ある場合" do
+      let(:args) { [".csv", ".xlsx"] }
+
+      xcontext "第一引数にマッチする場合" do
+        let(:string) { "sheet.csv" }
+
+        it { is_expected.to eq ___ }
+      end
+
+      xcontext "第二引数にマッチする場合" do
+        let(:string) { "sheet.xlsx" }
+
+        it { is_expected.to eq ___ }
+      end
+
+      xcontext "どの引数にもマッチしない場合" do
+        let(:string) { "sheet.jpg" }
+
+        it { is_expected.to eq ___ }
+      end
+    end
+  end
 end
