@@ -567,6 +567,25 @@ RSpec.describe String do
       let(:args) { [] }
       it { expect { subject }.to raise_error ArgumentError }
     end
+
+    context "マルチバイト文字に対して呼び出した場合" do
+      let(:string) { "ほむ" }
+
+      context "`width` に `4` を渡した場合" do
+        let(:width) { 4 }
+        it { is_expected.to eq " ほむ " }
+      end
+
+      context "`width` に `3` を渡した場合" do
+        let(:width) { 3 }
+        it { is_expected.to eq "ほむ " }
+      end
+
+      context "`width` に `1` を渡した場合" do
+        let(:width) { 1 }
+        it { is_expected.to eq "ほむ" }
+      end
+    end
   end
 
   describe "#ljust" do
@@ -614,6 +633,25 @@ RSpec.describe String do
       let(:args) { [] }
       it { expect { subject }.to raise_error ArgumentError }
     end
+
+    context "マルチバイト文字に対して呼び出した場合" do
+      let(:string) { "ほむ" }
+
+      context "`width` に `4` を渡した場合" do
+        let(:width) { 4 }
+        it { is_expected.to eq "ほむ  " }
+      end
+
+      context "`width` に `3` を渡した場合" do
+        let(:width) { 3 }
+        it { is_expected.to eq "ほむ " }
+      end
+
+      context "`width` に `1` を渡した場合" do
+        let(:width) { 1 }
+        it { is_expected.to eq "ほむ" }
+      end
+    end
   end
 
   describe "#rjust" do
@@ -660,6 +698,25 @@ RSpec.describe String do
     context "引数を渡さなかった時" do
       let(:args) { [] }
       it { expect { subject }.to raise_error ArgumentError }
+    end
+
+    context "マルチバイト文字に対して呼び出した場合" do
+      let(:string) { "ほむ" }
+
+      context "`width` に `4` を渡した場合" do
+        let(:width) { 4 }
+        it { is_expected.to eq "  ほむ" }
+      end
+
+      context "`width` に `3` を渡した場合" do
+        let(:width) { 3 }
+        it { is_expected.to eq " ほむ" }
+      end
+
+      context "`width` に `1` を渡した場合" do
+        let(:width) { 1 }
+        it { is_expected.to eq "ほむ" }
+      end
     end
   end
 end
