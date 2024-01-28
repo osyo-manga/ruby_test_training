@@ -521,4 +521,51 @@ RSpec.describe String do
       end
     end
   end
+
+  describe "#center" do
+    subject { string.center(*args) }
+
+    let(:string) { "foo" }
+    let(:args) { [width] }
+
+    context "`width` に `6` を渡した場合" do
+      let(:width) { 6 }
+      it { is_expected.to eq " foo  " }
+    end
+
+    context "`width` に `5` を渡した場合" do
+      let(:width) { 5 }
+      it { is_expected.to eq " foo " }
+    end
+
+    context "`width` に `4` を渡した場合" do
+      let(:width) { 4 }
+      it { is_expected.to eq "foo " }
+    end
+
+    context "`width` に `2` を渡した場合" do
+      let(:width) { 2 }
+      it { is_expected.to eq "foo" }
+    end
+
+    context "`width` に `0` を渡した場合" do
+      let(:width) { 0 }
+      it { is_expected.to eq "foo" }
+    end
+
+    context "`width` に `-1` を渡した場合" do
+      let(:width) { -1 }
+      it { is_expected.to eq "foo" }
+    end
+
+    context "第二引数に `*` を渡した場合" do
+      let(:args) { [8, "*"] }
+      it { is_expected.to eq "**foo***" }
+    end
+
+    context "引数を渡さなかった時" do
+      let(:args) { [] }
+      it { expect { subject }.to raise_error ArgumentError }
+    end
+  end
 end
