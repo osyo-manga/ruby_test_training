@@ -719,4 +719,113 @@ RSpec.describe String do
       end
     end
   end
+
+  describe "#split" do
+    subject { string.split(*args) }
+
+    let(:args) { [] }
+
+    context "引数を渡さなかった場合" do
+      let(:string) { "homu mami mado" }
+
+      it { is_expected.to eq ["homu", "mami", "mado"] }
+
+      context "対象の文字列に前後に空白文字がある場合" do
+        let(:string) { "  homu mami mado    " }
+
+        it { is_expected.to eq ["homu", "mami", "mado"] }
+      end
+
+      context "対象の文字列が空の文字列" do
+        let(:string) { "" }
+
+        it { is_expected.to eq [] }
+      end
+    end
+
+    context "第一引数を渡した場合" do
+      context "`,` を渡した場合" do
+        let(:string) { "homu,mami,mado" }
+        let(:args) { [","] }
+
+        it { is_expected.to eq ["homu", "mami", "mado"] }
+      end
+
+      context "`+` を渡した場合" do
+        let(:string) { "homu+mami+mado" }
+        let(:args) { ["+"] }
+
+        it { is_expected.to eq ["homu", "mami", "mado"] }
+      end
+
+      context "nil を渡した場合" do
+        let(:string) { "homu mami mado" }
+        let(:args) { [nil] }
+
+        it { is_expected.to eq ["homu", "mami", "mado"] }
+      end
+
+      context "`＿` を渡した場合" do
+        let(:string) { "ああ＿いい＿うう" }
+        let(:args) { ["＿"] }
+
+        it { is_expected.to eq ["ああ", "いい", "うう"] }
+      end
+
+      context "正規表現を渡した場合" do
+        let(:string) { "homu    mami      mado" }
+        let(:args) { [/\s+/] }
+
+        it { is_expected.to eq ["homu", "mami", "mado"] }
+      end
+
+      context "空文字列を渡した場合" do
+        let(:string) { "homu" }
+        let(:args) { [""] }
+
+        it { is_expected.to eq ["h", "o", "m", "u"] }
+      end
+
+      context "空の正規表現を渡した場合" do
+        let(:string) { "homu" }
+        let(:args) { [//] }
+
+        it { is_expected.to eq ["h", "o", "m", "u"] }
+      end
+    end
+
+    context "第二引数を渡した場合" do
+      let(:string) { "homu mami mado saya an" }
+
+      context "0 を渡した場合" do
+        let(:args) { [" ", 0] }
+
+        it { is_expected.to eq ["homu", "mami", "mado", "saya", "an"] }
+      end
+
+      context "1 を渡した場合" do
+        let(:args) { [" ", 1] }
+
+        it { is_expected.to eq ["homu mami mado saya an"] }
+      end
+
+      context "3 を渡した場合" do
+        let(:args) { [" ", 3] }
+
+        it { is_expected.to eq ["homu", "mami", "mado saya an"] }
+      end
+
+      context "5 を渡した場合" do
+        let(:args) { [" ", 5] }
+
+        it { is_expected.to eq ["homu", "mami", "mado", "saya", "an"] }
+      end
+
+      context "-1 を渡した場合" do
+        let(:args) { [" ", -1] }
+
+        it { is_expected.to eq ["homu", "mami", "mado", "saya", "an"] }
+      end
+    end
+  end
 end
