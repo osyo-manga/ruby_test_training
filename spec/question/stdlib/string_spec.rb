@@ -857,7 +857,7 @@ RSpec.describe String do
     end
   end
 
-  describe "#contact" do
+  describe "#concat" do
     subject { string.concat(*args) }
 
     let(:string) { "homu" }
