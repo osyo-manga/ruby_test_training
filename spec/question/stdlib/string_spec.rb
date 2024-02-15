@@ -828,4 +828,60 @@ RSpec.describe String do
       end
     end
   end
+
+  describe "#<<" do
+    subject { string << obj }
+
+    let(:string) { "homu" }
+
+    xcontext "`a` を渡した場合" do
+      let(:obj) { "a" }   # string << "a" と同等
+
+      it { is_expected.to eq ___ }
+      # string << obj した結果、string の値がどう変わるかを検証するテスト
+      # from に変更前の値を渡し、to に変更後の値を渡す
+      it { expect { subject }.to change { string }.from("homu").to ___ }
+    end
+
+    xcontext "`homu` を渡した場合" do
+      let(:obj) { "homu" }   # string << "homu" と同等
+
+      it { is_expected.to eq ___ }
+      it { expect { subject }.to change { string }.from("homu").to ___ }
+    end
+
+    xcontext "nil を渡した場合" do
+      let(:obj) { nil }
+
+      it { expect { subject }.to raise_error ___ }
+    end
+  end
+
+  describe "#contact" do
+    subject { string.concat(*args) }
+
+    let(:string) { "homu" }
+
+    xcontext "引数が1つの場合" do
+      let(:args) { ["homu"] }   # string.concat("homu") と同等
+
+      it { is_expected.to eq ___ }
+      # string << obj した結果、string の値がどう変わるかを検証するテスト
+      # from に変更前の値を渡し、to に変更後の値を渡す
+      it { expect { subject }.to change { string }.from("homu").to ___ }
+    end
+
+    xcontext "引数が複数の場合" do
+      let(:args) { [___, ___] }   # string.concat("mami", "mado") と同等
+
+      it { is_expected.to eq ___ }
+      it { expect { subject }.to change { string }.from(___).to "homumamimado" }
+    end
+
+    xcontext "引数がない場合" do
+      let(:args) { [] }   # string.concat() と同等
+
+      it { is_expected.to eq ___ }
+    end
+  end
 end
