@@ -65,7 +65,7 @@ RSpec.describe Array do
     xcontext "引数に数値以外の価を渡した場合" do
       let(:nth) { "0" }
 
-      it { expect { subject }.to raise_error TypeError }
+      it { expect { subject }.to raise_error ___ }
     end
   end
 
