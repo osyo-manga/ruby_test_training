@@ -866,7 +866,7 @@ RSpec.describe String do
       let(:args) { ["homu"] }   # string.concat("homu") と同等
 
       it { is_expected.to eq ___ }
-      # string << obj した結果、string の値がどう変わるかを検証するテスト
+      # string.concat(obj) した結果、string の値がどう変わるかを検証するテスト
       # from に変更前の値を渡し、to に変更後の値を渡す
       it { expect { subject }.to change { string }.from("homu").to ___ }
     end
