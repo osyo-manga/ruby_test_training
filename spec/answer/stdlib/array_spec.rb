@@ -260,6 +260,43 @@ RSpec.describe Array do
     end
   end
 
+  describe "#unshift / prepend" do
+    subject { array.unshift(*args) }
+    let(:array) { [1, 2] }
+
+    context "引数に1つの値を渡した場合" do
+      context "配列じゃない値を渡した場合" do
+        let(:args) { [3] }   # array.unshift(3) と同等
+
+        it { is_expected.to eq [3, 1, 2] }
+        # array.unshift(*args) した結果、array の値がどう変わるかを検証するテスト
+        # from に変更前の値を渡し、to に変更後の値を渡す
+        it { expect { subject }.to change { array }.from([1, 2]).to [3, 1, 2] }
+      end
+
+      context "配列である値を渡した場合" do
+        let(:args) { [[3, 4]] }   # array.unshift([3, 4]) と同等
+
+        it { is_expected.to eq [[3, 4], 1, 2] }
+        it { expect { subject }.to change { array }.from([1, 2]).to [[3, 4], 1, 2] }
+      end
+    end
+
+    context "引数に複数の値を渡した場合" do
+      let(:args) { [3, 4, 5] }   # array.unshift(3, 4, 5) と同等
+
+      it { is_expected.to eq [3, 4, 5, 1, 2] }
+      it { expect { subject }.to change { array }.from([1, 2]).to [3, 4, 5, 1, 2] }
+    end
+
+    context "引数に値を渡さなかった場合" do
+      let(:args) { [] }   # array.unshift() と同等
+
+      it { is_expected.to eq [1, 2] }
+      it { expect { subject }.not_to change { array } }
+    end
+  end
+
   describe "#join" do
     subject { array.join(*args) }
 
