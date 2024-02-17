@@ -353,4 +353,124 @@ RSpec.describe Array do
       it { expect { subject }.to raise_error ArgumentError }
     end
   end
+
+  describe "#first" do
+    subject { array.first(*args) }
+
+    context "引数がない場合" do
+      let(:args) { [] }   # array.first() と同等
+
+      context "要素がある配列に対して呼び出した場合" do
+        let(:array) { [1, 2, 3] }
+
+        it { is_expected.to eq 1 }
+      end
+
+      context "空の配列に対して呼び出した場合" do
+        let(:array) { [] }
+        it { is_expected.to eq nil }
+      end
+    end
+
+    context "引数がある場合" do
+      let(:array) { [1, 2, 3] }
+      let(:args) { [n] }   # array.first(n) と同等
+
+      context "`0` を渡した場合" do
+        let(:n) { 0 }
+        it { is_expected.to eq [] }
+      end
+
+      context "`1` を渡した場合" do
+        let(:n) { 1 }
+        it { is_expected.to eq [1] }
+      end
+
+      context "`2` を渡した場合" do
+        let(:n) { 2 }
+        it { is_expected.to eq [1, 2] }
+      end
+
+      context "`5` を渡した場合" do
+        let(:n) { 5 }
+        it { is_expected.to eq [1, 2, 3] }
+      end
+
+      context "`-1` を渡した場合" do
+        let(:n) { -1 }
+        it { expect { subject }.to raise_error ArgumentError }
+      end
+
+      context "`'2'` を渡した場合" do
+        let(:n) { "2" }
+        it { expect { subject }.to raise_error TypeError }
+      end
+
+      context "空の配列に対して呼び出した場合" do
+        let(:array) { [] }
+        let(:n) { 1 }
+        it { is_expected.to eq [] }
+      end
+    end
+  end
+
+  describe "#last" do
+    subject { array.last(*args) }
+
+    context "引数がない場合" do
+      let(:args) { [] }   # array.last() と同等
+
+      context "要素がある配列に対して呼び出した場合" do
+        let(:array) { [1, 2, 3] }
+
+        it { is_expected.to eq 3 }
+      end
+
+      context "空の配列に対して呼び出した場合" do
+        let(:array) { [] }
+        it { is_expected.to eq nil }
+      end
+    end
+
+    context "引数がある場合" do
+      let(:array) { [1, 2, 3] }
+      let(:args) { [n] }   # array.last(n) と同等
+
+      context "`0` を渡した場合" do
+        let(:n) { 0 }
+        it { is_expected.to eq [] }
+      end
+
+      context "`1` を渡した場合" do
+        let(:n) { 1 }
+        it { is_expected.to eq [3] }
+      end
+
+      context "`2` を渡した場合" do
+        let(:n) { 2 }
+        it { is_expected.to eq [2, 3] }
+      end
+
+      context "`5` を渡した場合" do
+        let(:n) { 5 }
+        it { is_expected.to eq [1, 2, 3] }
+      end
+
+      context "`-1` を渡した場合" do
+        let(:n) { -1 }
+        it { expect { subject }.to raise_error ArgumentError }
+      end
+
+      context "`'2'` を渡した場合" do
+        let(:n) { "2" }
+        it { expect { subject }.to raise_error TypeError }
+      end
+
+      context "空の配列に対して呼び出した場合" do
+        let(:array) { [] }
+        let(:n) { 1 }
+        it { is_expected.to eq [] }
+      end
+    end
+  end
 end
