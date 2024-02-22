@@ -174,7 +174,7 @@ RSpec.describe Array do
         let(:start) { -3 }
         let(:length) { ___ }
 
-        it { is_expected.to eq ["saya", "an"] }
+        it { is_expected.to eq ["mado", "saya"] }
       end
 
       xcontext "length に要素数を越える値を渡した場合" do
