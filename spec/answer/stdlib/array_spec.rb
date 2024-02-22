@@ -99,17 +99,23 @@ RSpec.describe Array do
       context "`-1` を渡した場合" do
         let(:nth) { -1 }
 
-        it { is_expected.to eq "mado" }
+        it { is_expected.to eq "an" }
       end
 
       context "`-2` を渡した場合" do
         let(:nth) { -2 }
 
-        it { is_expected.to eq "mami" }
+        it { is_expected.to eq "saya" }
       end
 
       context "`-5` を渡した場合" do
         let(:nth) { -5 }
+
+        it { is_expected.to eq "homu" }
+      end
+
+      context "`-7` を渡した場合" do
+        let(:nth) { -7 }
 
         it { is_expected.to eq nil }
       end
@@ -472,5 +478,9 @@ RSpec.describe Array do
         it { is_expected.to eq [] }
       end
     end
+  end
+
+  describe "#min" do
+
   end
 end
