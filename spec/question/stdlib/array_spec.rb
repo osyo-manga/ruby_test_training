@@ -112,6 +112,12 @@ RSpec.describe Array do
 
         it { is_expected.to eq ___ }
       end
+
+      xcontext "`-7` を渡した場合" do
+        let(:nth) { -7 }
+
+        it { is_expected.to eq ___ }
+      end
     end
 
     context "引数に Range を渡した場合" do
