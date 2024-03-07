@@ -520,4 +520,38 @@ RSpec.describe Array do
       it { is_expected.to have_attributes(class: Enumerator) }
     end
   end
+
+  describe "#select / filter / find_all" do
+    subject { array.select(&block) }
+    let(:array) { [1, 2, 3, 4, 5] }
+
+    context "block 引数を渡した場合" do
+      context "何かしら処理がある場合" do
+        xcontext "偶数で絞り込む場合" do
+          let(:block) { -> (it) { it.even? } }   # array.select { |it| it.even? } と同等
+
+          it { is_expected.to eq [2, 4] }
+        end
+
+        xcontext "奇数で絞り込む場合" do
+          let(:block) { -> (it) { it.odd? } }   # array.select { |it| it.odd? } と同等
+
+          it { is_expected.to eq [1, 3, 5] }
+        end
+      end
+
+      xcontext "ブロックの中身が空の場合" do
+        let(:block) { -> (it) {  } }   # array.select { |it| } と同等
+
+        it { is_expected.to eq [] }
+      end
+    end
+
+    xcontext "block 引数を渡さなかった場合" do
+      let(:block) { nil }   # array.select と同等（ブロック引数はない）
+
+      # expect(subject.class).to eq Enumerator と同等
+      it { is_expected.to have_attributes(class: Enumerator) }
+    end
+  end
 end
