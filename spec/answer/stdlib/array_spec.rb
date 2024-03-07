@@ -480,7 +480,29 @@ RSpec.describe Array do
     end
   end
 
-  describe "#min" do
+  describe "#map / collect" do
+    subject { array.map(&block) }
+    let(:array) { [1, 2, 3] }
 
+    context "block 引数を渡した場合" do
+      context "何かしら処理がある場合" do
+        let(:block) { -> (it) { it + it } }   # array.map { |it| it + it } と同等
+
+        it { is_expected.to eq [2, 4, 6] }
+      end
+
+      context "ブロックの中身が空の場合" do
+        let(:block) { -> (it) {  } }   # array.map { |it| } と同等
+
+        it { is_expected.to eq [nil, nil, nil] }
+      end
+    end
+
+    context "block 引数を渡さなかった場合" do
+      let(:block) { nil }   # array.map と同等（ブロック引数はない）
+
+      # expect(subject.class).to eq Enumerator と同等
+      it { is_expected.to have_attributes(class: Enumerator) }
+    end
   end
 end
