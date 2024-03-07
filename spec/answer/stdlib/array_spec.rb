@@ -358,6 +358,12 @@ RSpec.describe Array do
 
       it { expect { subject }.to raise_error ArgumentError }
     end
+
+    context "配列の要素に数値が混ざっている場合" do
+      let(:array) { [1, "homu", "mami", 2] }
+
+      it { is_expected.to eq "1homumami2" }
+    end
   end
 
   describe "#first" do
