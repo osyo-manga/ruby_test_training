@@ -299,7 +299,7 @@ RSpec.describe Array do
       let(:args) { [] }   # array.unshift() と同等
 
       it { is_expected.to eq ___ }
-      it { expect { subject }.to change { array }.from([1, 2]).to ___ }
+      it { expect { subject }.not_to change { ___ } }
     end
   end
 
