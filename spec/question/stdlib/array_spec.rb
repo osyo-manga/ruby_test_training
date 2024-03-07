@@ -485,10 +485,19 @@ RSpec.describe Array do
     let(:array) { [1, 2, 3] }
 
     context "block 引数を渡した場合" do
-      xcontext "何かしら処理がある場合" do
-        let(:block) { -> (it) { it + it } }   # array.map { |it| it + it } と同等
+      context "何かしら処理がある場合" do
+        xcontext "2倍にした場合" do
+          let(:block) { -> (it) { it * 2 } }   # array.map { |it| it * 2 } と同等
 
-        it { is_expected.to eq ___ }
+          it { is_expected.to eq ___ }
+        end
+
+        xcontext "メソッドを呼び出した場合" do
+          let(:array) { ["homu", "mami", "mado"] }
+          let(:block) { -> (it) { it.upcase } }   # array.map { |it| it.upcase } と同等
+
+          it { is_expected.to eq ___ }
+        end
       end
 
       xcontext "ブロックの中身が空の場合" do

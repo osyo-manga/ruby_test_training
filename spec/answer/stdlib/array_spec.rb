@@ -486,9 +486,18 @@ RSpec.describe Array do
 
     context "block 引数を渡した場合" do
       context "何かしら処理がある場合" do
-        let(:block) { -> (it) { it + it } }   # array.map { |it| it + it } と同等
+        context "2倍にした場合" do
+          let(:block) { -> (it) { it * 2 } }   # array.map { |it| it * 2 } と同等
 
-        it { is_expected.to eq [2, 4, 6] }
+          it { is_expected.to eq [2, 4, 6] }
+        end
+
+        context "メソッドを呼び出した場合" do
+          let(:array) { ["homu", "mami", "mado"] }
+          let(:block) { -> (it) { it.upcase } }   # array.map { |it| it.upcase } と同等
+
+          it { is_expected.to eq ["HOMU", "MAMI", "MADO"] }
+        end
       end
 
       context "ブロックの中身が空の場合" do
