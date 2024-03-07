@@ -54,7 +54,8 @@ RSpec.describe Array do
     xcontext "`-2` を渡した場合" do
       let(:nth) { -2 }
 
-      it { is_expected.to eq ___ } end
+      it { is_expected.to eq ___ }
+    end
 
     xcontext "`-5` を渡した場合" do
       let(:nth) { -5 }
