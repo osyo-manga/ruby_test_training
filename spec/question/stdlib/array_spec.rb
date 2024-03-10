@@ -527,27 +527,27 @@ RSpec.describe Array do
 
     context "block 引数を渡した場合" do
       context "何かしら処理がある場合" do
-        context "偶数で絞り込む場合" do
+        xcontext "偶数で絞り込む場合" do
           let(:block) { -> (it) { it.even? } }   # array.select { |it| it.even? } と同等
 
           it { is_expected.to eq ___ }
         end
 
-        context "奇数で絞り込む場合" do
+        xcontext "奇数で絞り込む場合" do
           let(:block) { -> (it) { it.odd? } }   # array.select { |it| it.odd? } と同等
 
           it { is_expected.to eq ___ }
         end
       end
 
-      context "ブロックの中身が空の場合" do
+      xcontext "ブロックの中身が空の場合" do
         let(:block) { -> (it) {  } }   # array.select { |it| } と同等
 
         it { is_expected.to eq ___ }
       end
     end
 
-    context "block 引数を渡さなかった場合" do
+    xcontext "block 引数を渡さなかった場合" do
       let(:block) { nil }   # array.select と同等（ブロック引数はない）
 
       # expect(subject.class).to eq ___ と同等
