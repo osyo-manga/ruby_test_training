@@ -554,4 +554,37 @@ RSpec.describe Array do
       it { is_expected.to have_attributes(class: ___) }
     end
   end
+
+  describe "#count" do
+    subject { array.count(*args, &block) }
+    let(:array) { [1, 1, 2, 3, 3, 4, 4, 4, 5] }
+
+    xcontext "1 の個数を計算する場合" do
+      let(:args) { [1] }    # array.count(1) と同等
+      let(:block) { nil }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "4 の個数を計算する場合" do
+      let(:args) { [___] }    # array.count(___) と同等
+      let(:block) { nil }
+
+      it { is_expected.to eq 3 }
+    end
+
+    xcontext "偶数の数を計算する場合" do
+      let(:args) { [] }
+      let(:block) { -> (it) { it.even? } }   # array.count { |it| it.even? } と同等
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "3 よりも大きい数を計算する場合" do
+      let(:args) { [] }
+      let(:block) { -> (it) { ___ } }   # array.count { |it| ___ } と同等
+
+      it { is_expected.to eq 6 }
+    end
+  end
 end

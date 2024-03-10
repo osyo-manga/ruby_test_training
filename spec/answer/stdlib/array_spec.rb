@@ -554,4 +554,37 @@ RSpec.describe Array do
       it { is_expected.to have_attributes(class: Enumerator) }
     end
   end
+
+  describe "#count" do
+    subject { array.count(*args, &block) }
+    let(:array) { [1, 1, 2, 3, 3, 4, 4, 4, 5] }
+
+    context "1 の個数を計算する場合" do
+      let(:args) { [1] }    # array.count(1) と同等
+      let(:block) { nil }
+
+      it { is_expected.to eq 2 }
+    end
+
+    context "4 の個数を計算する場合" do
+      let(:args) { [4] }    # array.count(4) と同等
+      let(:block) { nil }
+
+      it { is_expected.to eq 3 }
+    end
+
+    context "偶数の数を計算する場合" do
+      let(:args) { [] }
+      let(:block) { -> (it) { it.even? } }   # array.count { |it| it.even? } と同等
+
+      it { is_expected.to eq 4 }
+    end
+
+    context "3 よりも大きい数を計算する場合" do
+      let(:args) { [] }
+      let(:block) { -> (it) { 3 <= it } }   # array.count { |it| 3 <= it } と同等
+
+      it { is_expected.to eq 6 }
+    end
+  end
 end
