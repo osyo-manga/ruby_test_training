@@ -586,5 +586,12 @@ RSpec.describe Array do
 
       it { is_expected.to eq 6 }
     end
+
+    xcontext "位置引数とブロック引数の両方の値を渡している場合" do
+      let(:args) { [1] }
+      let(:block) { -> (it) { it.even? } }   # array.count(1) { |it| it.even? } と同等
+
+      it { is_expected.to eq ___ }
+    end
   end
 end
