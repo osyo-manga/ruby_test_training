@@ -594,4 +594,44 @@ RSpec.describe Array do
       it { is_expected.to eq ___ }
     end
   end
+
+  describe "#find / detect" do
+    subject { array.find(ifnone, &block) }
+    let(:array) { [5, 6, 4, 2, 1, 3] }
+
+    xcontext "最初に見つかる偶数の値を検索する場合" do
+      let(:ifnone) { nil }
+      let(:block) { -> (it) { it.even? } }   # array.find { |it| it.even? } と同等
+
+      it { is_expected.to eq ___  }
+    end
+
+    xcontext "最初に見つかる3以下の値を検索する場合" do
+      let(:ifnone) { nil }
+      let(:block) { -> (it) { ___ } }   # array.find { |it| ___ } と同等
+
+      it { is_expected.to eq 2 }
+    end
+
+    xcontext "条件に見つかる値がみつからなかった場合" do
+      let(:ifnone) { nil }
+      let(:block) { -> (it) { 10 <= it } }   # array.find(ifnone) { |it| 10 <= it } と同等
+
+      it { is_expected.to eq ___ }
+
+      xcontext "ifnone に例外を発生させる proc を渡した場合" do
+        let(:ifnone) { proc { raise ArgumentError, "見つかりませんでした" } }
+
+        it { expect { subject }.to raise_error(___) }
+      end
+    end
+
+    xcontext "block 引数を渡さなかった場合" do
+      let(:ifnone) { nil }
+      let(:block) { nil }   # array.find と同等（ブロック引数はない）
+
+      # expect(subject.class).to eq ___ と同等
+      it { is_expected.to have_attributes(class: ___) }
+    end
+  end
 end
