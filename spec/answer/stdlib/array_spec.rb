@@ -488,32 +488,37 @@ RSpec.describe Array do
 
   describe "#map / collect" do
     subject { array.map(&block) }
-    let(:array) { [1, 2, 3] }
 
-    context "block 引数を渡した場合" do
-      context "何かしら処理がある場合" do
-        context "2倍にした場合" do
-          let(:block) { -> (it) { it * 2 } }   # array.map { |it| it * 2 } と同等
+    context "要素を2倍にする場合" do
+      let(:array) { [1, 2, 3] }
+      let(:block) { -> (it) { it * 2 } }   # array.map { |it| it * 2 } と同等
 
-          it { is_expected.to eq [2, 4, 6] }
-        end
+      it { is_expected.to eq [2, 4, 6] }
+    end
 
-        context "メソッドを呼び出した場合" do
-          let(:array) { ["homu", "mami", "mado"] }
-          let(:block) { -> (it) { it.upcase } }   # array.map { |it| it.upcase } と同等
+    context "要素を文字数に変換する場合" do
+      let(:array) { ["homuhomu", "mami", "an"] }
+      let(:block) { -> (it) { it.size } }   # array.map { |it| it.size } と同等
 
-          it { is_expected.to eq ["HOMU", "MAMI", "MADO"] }
-        end
-      end
+      it { is_expected.to eq [8, 4, 2] }
+    end
 
-      context "ブロックの中身が空の場合" do
-        let(:block) { -> (it) {  } }   # array.map { |it| } と同等
+    context "要素を大文字に変換する場合" do
+      let(:array) { ["mami", "mado", "saya"] }
+      let(:block) { -> (it) { it.upcase } }   # array.map { |it| it.upcase } と同等
 
-        it { is_expected.to eq [nil, nil, nil] }
-      end
+      it { is_expected.to eq ["MAMI", "MADO", "SAYA"] }
+    end
+
+    context "ブロックの中身が空の場合" do
+      let(:array) { [1, 2, 3] }
+      let(:block) { -> (it) {  } }   # array.map { |it| } と同等
+
+      it { is_expected.to eq [nil, nil, nil] }
     end
 
     context "block 引数を渡さなかった場合" do
+      let(:array) { [1, 2, 3] }
       let(:block) { nil }   # array.map と同等（ブロック引数はない）
 
       # expect(subject.class).to eq Enumerator と同等
