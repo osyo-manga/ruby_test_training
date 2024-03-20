@@ -528,31 +528,39 @@ RSpec.describe Array do
 
   describe "#select / filter / find_all" do
     subject { array.select(&block) }
-    let(:array) { [1, 2, 3, 4, 5] }
+    let(:array) { [5, 4, 1, 3, 2, 7, 6] }
 
-    context "block 引数を渡した場合" do
-      context "何かしら処理がある場合" do
-        xcontext "偶数で絞り込む場合" do
-          let(:block) { -> (it) { it.even? } }   # array.select { |it| it.even? } と同等
+    context "偶数での値のみ絞り込む場合" do
+      let(:block) { -> (it) { it.even? } }   # array.select { |it| it.even? } と同等
 
-          it { is_expected.to eq [2, 4] }
-        end
-
-        xcontext "奇数で絞り込む場合" do
-          let(:block) { -> (it) { it.odd? } }   # array.select { |it| it.odd? } と同等
-
-          it { is_expected.to eq [1, 3, 5] }
-        end
-      end
-
-      xcontext "ブロックの中身が空の場合" do
-        let(:block) { -> (it) {  } }   # array.select { |it| } と同等
-
-        it { is_expected.to eq [] }
-      end
+      it { is_expected.to eq [4, 2, 6] }
     end
 
-    xcontext "block 引数を渡さなかった場合" do
+    context "奇数での値のみ絞り込む場合" do
+      let(:block) { -> (it) { it.odd? } }   # array.select { |it| it.odd? } と同等
+
+      it { is_expected.to eq [5, 1, 3, 7] }
+    end
+
+    context "3以下の値で絞り込む場合" do
+      let(:block) { -> (it) { it <= 3 } }   # array.select { |it| it <= 3 } と同等
+
+      it { is_expected.to eq [1, 3, 2] }
+    end
+
+    context "10以上の値で絞り込む場合" do
+      let(:block) { -> (it) { 10 <= it } }   # array.select { |it| 10 <= it } と同等
+
+      it { is_expected.to eq [] }
+    end
+
+    context "ブロックの中身が空の場合" do
+      let(:block) { -> (it) {  } }   # array.select { |it| } と同等
+
+      it { is_expected.to eq [] }
+    end
+
+    context "block 引数を渡さなかった場合" do
       let(:block) { nil }   # array.select と同等（ブロック引数はない）
 
       # expect(subject.class).to eq Enumerator と同等
