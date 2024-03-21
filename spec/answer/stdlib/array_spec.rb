@@ -647,4 +647,34 @@ RSpec.describe Array do
       it { is_expected.to have_attributes(class: Enumerator) }
     end
   end
+
+  describe "#reject" do
+    subject { array.reject(&block) }
+    let(:array) { ["homuhomu", "mami", "saka", "an", "madomado"] }
+
+    context "5文字以上の値を削除する場合" do
+      let(:block) { -> (it) { 5 <= it.length } }   # array.select { |it| 5 <= it.length } と同等
+
+      it { is_expected.to eq ["mami", "saka", "an"] }
+    end
+
+    context "先頭の文字が `m` の値を削除する場合" do
+      let(:block) { -> (it) { it =~ /^m/ } }   # array.select { |it| it =~ /^m/ } と同等
+
+      it { is_expected.to eq ["homuhomu", "saka", "an"] }
+    end
+
+    context "ブロックの中身が空の場合" do
+      let(:block) { -> (it) {  } }   # array.select { |it| } と同等
+
+      it { is_expected.to eq ["homuhomu", "mami", "saka", "an", "madomado"] }
+    end
+
+    context "block 引数を渡さなかった場合" do
+      let(:block) { nil }   # array.select と同等（ブロック引数はない）
+
+      # expect(subject.class).to eq Enumerator と同等
+      it { is_expected.to have_attributes(class: Enumerator) }
+    end
+  end
 end
