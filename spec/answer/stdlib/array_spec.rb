@@ -683,4 +683,40 @@ RSpec.describe Array do
       it { is_expected.to have_attributes(class: Enumerator) }
     end
   end
+
+  describe "#all?" do
+    subject { array.all?(*args, &block) }
+
+    context "全て偶数であるかどうかを判定する" do
+      let(:array) { [2, 4, 6] }
+      let(:args) { [] }
+      let(:block) { -> (it) { it.even? } }   # array.all? { |it| it.even? } と同等
+
+      it { is_expected.to eq true }
+    end
+
+    context "全て奇数であるかどうかを判定する" do
+      let(:array) { [2, 4, 5] }
+      let(:args) { [] }
+      let(:block) { -> (it) { it.odd? } }   # array.all? { |it| it.odd? } と同等
+
+      it { is_expected.to eq false }
+    end
+
+    context "全ての要素が5文字以下かどうか判定する" do
+      let(:array) { ["homu", "mami", "mado"] }
+      let(:args) { [] }
+      let(:block) { -> (it) { it.length <= 5 } }   # array.all? { |it| it.length <= 5 } と同等
+
+      it { is_expected.to eq true }
+    end
+
+    context "全ての文字に m が含まれているかどうか判定する" do
+      let(:array) { ["homu", "mami", "mado"] }
+      let(:args) { [/m/] }   # array.all?(/m/) と同等
+      let(:block) { nil }
+
+      it { is_expected.to eq true }
+    end
+  end
 end
