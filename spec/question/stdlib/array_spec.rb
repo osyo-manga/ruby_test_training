@@ -632,6 +632,12 @@ RSpec.describe Array do
 
       it { is_expected.to eq ___ }
 
+      xcontext "ifnone を渡した場合" do
+        let(:ifnone) { proc { "見つかりませんでした" } }
+
+        it { is_expected.to eq ___ }
+      end
+
       xcontext "ifnone に例外を発生させる proc を渡した場合" do
         let(:ifnone) { proc { raise ArgumentError, "見つかりませんでした" } }
 
