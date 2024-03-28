@@ -782,5 +782,13 @@ RSpec.describe Array do
 
       it { is_expected.to eq false }
     end
+
+    context "先頭が m からはじまる文字が含まれていないかどうか判定する" do
+      let(:array) { ["homu", "saya", "an"] }
+      let(:args) { [/^m/] }   # array.any?(/^m/) と同等
+      let(:block) { nil }
+
+      it { is_expected.to eq true }
+    end
   end
 end
