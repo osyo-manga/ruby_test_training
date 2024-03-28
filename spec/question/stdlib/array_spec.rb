@@ -756,7 +756,7 @@ RSpec.describe Array do
     end
   end
 
-  describe "#one?" do
+  describe "#none?" do
     subject { array.none?(*args, &block) }
 
     xcontext "全て nil じゃないかどうか判定する" do
