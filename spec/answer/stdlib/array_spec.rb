@@ -731,7 +731,7 @@ RSpec.describe Array do
       it { is_expected.to eq true }
     end
 
-    context "偶数の値があるかどうか判定する" do
+    context "奇数の値があるかどうか判定する" do
       let(:array) { [2, 4, 6] }
       let(:args) { [] }
       let(:block) { -> (it) { it.odd? } }   # array.any? { |it| it.odd? } と同等

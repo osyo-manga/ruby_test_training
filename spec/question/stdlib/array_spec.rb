@@ -731,7 +731,7 @@ RSpec.describe Array do
       it { is_expected.to eq ___ }
     end
 
-    xcontext "偶数の値があるかどうか判定する" do
+    xcontext "奇数の値があるかどうか判定する" do
       let(:array) { [2, 4, 6] }
       let(:args) { [] }
       let(:block) { -> (it) { ___ } }   # array.any? { |it| ___ } と同等
@@ -749,7 +749,7 @@ RSpec.describe Array do
 
     xcontext "m が含まれている文字があるかどうか判定する" do
       let(:array) { ["saya", "mami", "mado"] }
-      let(:args) { [/m/] }   # array.any?(___) と同等
+      let(:args) { [___] }   # array.any?(___) と同等
       let(:block) { nil }
 
       it { is_expected.to eq true }
