@@ -785,7 +785,7 @@ RSpec.describe Array do
 
     xcontext "先頭が m からはじまる文字が含まれていないかどうか判定する" do
       let(:array) { ["homu", "saya", "an"] }
-      let(:args) { [___] }   # array.any?(___) と同等
+      let(:args) { [___] }   # array.none?(___) と同等
       let(:block) { nil }
 
       it { is_expected.to eq true }
