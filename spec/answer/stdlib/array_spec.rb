@@ -755,4 +755,32 @@ RSpec.describe Array do
       it { is_expected.to eq true }
     end
   end
+
+  describe "#none?" do
+    subject { array.none?(*args, &block) }
+
+    context "全て nil じゃないかどうか判定する" do
+      let(:array) { ["homu", 1, nil] }
+      let(:args) { [] }
+      let(:block) { -> (it) { it.nil? } }   # array.none? { |it| it.nil? } と同等
+
+      it { is_expected.to eq false }
+    end
+
+    context "全て空文字列じゃないかどうか判定する" do
+      let(:array) { ["homu", "mami", "mado"] }
+      let(:args) { [] }
+      let(:block) { -> (it) { it.empty? } }   # array.none? { |it| it.empty? } と同等
+
+      it { is_expected.to eq true }
+    end
+
+    context "全て5文字以下じゃないかどうか判定する" do
+      let(:array) { ["homuhomu", "mami", "mado"] }
+      let(:args) { [] }
+      let(:block) { -> (it) { it.length <= 5 } }   # array.none? { |it| it.length <= 5 } と同等
+
+      it { is_expected.to eq false }
+    end
+  end
 end
