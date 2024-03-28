@@ -791,4 +791,32 @@ RSpec.describe Array do
       it { is_expected.to eq true }
     end
   end
+
+  describe "#one?" do
+    subject { array.one?(*args, &block) }
+
+    context "nil の値が1つだけかどうか判定する" do
+      let(:array) { ["", 0, nil, false] }
+      let(:args) { [] }
+      let(:block) { -> (it) { it.nil? } }   # array.one? { |it| it.nil? } と同等
+
+      it { is_expected.to eq true }
+    end
+
+    context "真の値が1つだけかどうか判定する" do
+      let(:array) { ["", 0, nil, false] }
+      let(:args) { [] }
+      let(:block) { -> (it) { it } }   # array.one? { |it| it } と同等
+
+      it { is_expected.to eq false }
+    end
+
+    context "末尾の値が a の値が1つかどうか判定する" do
+      let(:array) { ["homu", "saya", "an"] }
+      let(:args) { [/a$/] }   # array.one?(/a$/) と同等
+      let(:block) { nil }
+
+      it { is_expected.to eq true }
+    end
+  end
 end

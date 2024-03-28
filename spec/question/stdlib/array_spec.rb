@@ -756,7 +756,7 @@ RSpec.describe Array do
     end
   end
 
-  describe "#none?" do
+  describe "#one?" do
     subject { array.none?(*args, &block) }
 
     xcontext "全て nil じゃないかどうか判定する" do
@@ -786,6 +786,34 @@ RSpec.describe Array do
     xcontext "先頭が m からはじまる文字が含まれていないかどうか判定する" do
       let(:array) { ["homu", "saya", "an"] }
       let(:args) { [___] }   # array.any?(___) と同等
+      let(:block) { nil }
+
+      it { is_expected.to eq true }
+    end
+  end
+
+  describe "#one?" do
+    subject { array.one?(*args, &block) }
+
+    xcontext "nil の値が1つだけかどうか判定する" do
+      let(:array) { ["", 0, nil, false] }
+      let(:args) { [] }
+      let(:block) { -> (it) { ___ } }   # array.one? { |it| ___ } と同等
+
+      it { is_expected.to eq true }
+    end
+
+    xcontext "真の値が1つだけかどうか判定する" do
+      let(:array) { ["", 0, nil, false] }
+      let(:args) { [] }
+      let(:block) { -> (it) { it } }   # array.one? { |it| it } と同等
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "末尾の値が a の値が1つかどうか判定する" do
+      let(:array) { ["homu", "saya", "an"] }
+      let(:args) { [___] }   # array.one?(/a$/) と同等
       let(:block) { nil }
 
       it { is_expected.to eq true }
