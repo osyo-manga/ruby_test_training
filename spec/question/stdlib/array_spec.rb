@@ -719,4 +719,40 @@ RSpec.describe Array do
       it { is_expected.to eq true }
     end
   end
+
+  describe "#any?" do
+    subject { array.any?(*args, &block) }
+
+    xcontext "偶数の値があるかどうか判定する" do
+      let(:array) { [1, 2, 3] }
+      let(:args) { [] }
+      let(:block) { -> (it) { it.even? } }   # array.any? { |it| it.even? } と同等
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "偶数の値があるかどうか判定する" do
+      let(:array) { [2, 4, 6] }
+      let(:args) { [] }
+      let(:block) { -> (it) { ___ } }   # array.any? { |it| ___ } と同等
+
+      it { is_expected.to eq false }
+    end
+
+    xcontext "5文字以上の要素が含まれているかどうか判定する" do
+      let(:array) { ["homu", "mami", "mado"] }
+      let(:args) { [] }
+      let(:block) { -> (it) { ___ } }   # array.any? { |it| ___ } と同等
+
+      it { is_expected.to eq false }
+    end
+
+    xcontext "m が含まれている文字があるかどうか判定する" do
+      let(:array) { ["saya", "mami", "mado"] }
+      let(:args) { [/m/] }   # array.any?(___) と同等
+      let(:block) { nil }
+
+      it { is_expected.to eq true }
+    end
+  end
 end
