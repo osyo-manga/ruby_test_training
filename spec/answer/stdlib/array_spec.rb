@@ -742,7 +742,7 @@ RSpec.describe Array do
     context "5文字以上の要素が含まれているかどうか判定する" do
       let(:array) { ["homu", "mami", "mado"] }
       let(:args) { [] }
-      let(:block) { -> (it) { 5 <= it.length } }   # array.any? { |it| it.length <= 5 } と同等
+      let(:block) { -> (it) { 5 <= it.length } }   # array.any? { |it| 5 <= it.length } と同等
 
       it { is_expected.to eq false }
     end
