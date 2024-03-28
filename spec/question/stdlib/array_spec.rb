@@ -679,8 +679,8 @@ RSpec.describe Array do
     xcontext "block 引数を渡さなかった場合" do
       let(:block) { nil }   # array.select と同等（ブロック引数はない）
 
-      # expect(subject.class).to eq Enumerator と同等
-      it { is_expected.to have_attributes(class: Enumerator) }
+      # expect(subject.class).to eq ___ と同等
+      it { is_expected.to have_attributes(class: ___) }
     end
   end
 
