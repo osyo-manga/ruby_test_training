@@ -819,4 +819,32 @@ RSpec.describe Array do
       it { is_expected.to eq true }
     end
   end
+
+  describe "#sort" do
+    subject { array.sort }
+
+    xcontext "数値をソートする場合" do
+      let(:array) { [9, 1, 5, 7, 3, 2, 4, 10, 6, 8] }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "文字列をソートする場合" do
+      let(:array) { ["mado", "Mami", "an", "homu", "saya"] }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "数値の文字列をソートする場合" do
+      let(:array) { ["009", "104", "22222", "42", "3", "108"] }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "数値と文字列が混ざっている配列をソートする場合" do
+      let(:array) { ["homu", 42, "mami", 108] }
+
+      it { expect { subject }.to raise_error(___) }
+    end
+  end
 end
