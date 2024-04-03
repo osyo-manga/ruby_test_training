@@ -847,4 +847,29 @@ RSpec.describe Array do
       it { expect { subject }.to raise_error(ArgumentError) }
     end
   end
+
+  describe "#sort_by" do
+    subject { array.sort_by(&block) }
+
+    context "数値の文字列を数値としてソートする場合" do
+      let(:array) { ["009", "104", "22222", "42", "3", "108"] }
+      let(:block) { -> (it) { it.to_i } }   # array.sort_by { |it| it.to_i } と同等
+
+      it { is_expected.to eq ["3", "009", "42", "104", "108", "22222"] }
+    end
+
+    context "文字列の長さでソートする場合" do
+      let(:array) { ["homuhomu", "mami", "an", "madomado", "saya"] }
+      let(:block) { -> (it) { it.length } }   # array.sort_by { |it| it.length } と同等
+
+      it { is_expected.to eq ["an", "mami", "saya", "homuhomu", "madomado"] }
+    end
+
+    context "大文字小文字関係なくソートする場合" do
+      let(:array) { ["Homu", "mami", "Mado", "SAYA", "an"] }
+      let(:block) { -> (it) { it.downcase } }   # array.sort_by { |it| it.downcase } と同等
+
+      it { is_expected.to eq ["an", "Homu", "Mado", "mami", "SAYA"] }
+    end
+  end
 end
