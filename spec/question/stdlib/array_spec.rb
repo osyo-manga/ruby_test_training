@@ -813,7 +813,7 @@ RSpec.describe Array do
 
     xcontext "末尾の値が a の値が1つかどうか判定する" do
       let(:array) { ["homu", "saya", "an"] }
-      let(:args) { [___] }   # array.one?(/a$/) と同等
+      let(:args) { [___] }   # array.one?(___) と同等
       let(:block) { nil }
 
       it { is_expected.to eq true }
