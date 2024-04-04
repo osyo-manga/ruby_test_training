@@ -905,7 +905,7 @@ RSpec.describe Array do
       it { is_expected.to eq "an" }
     end
 
-    context "数値の文字列と数値が混ざっている配列で文字列として最大値を取得する場合" do
+    context "数値の文字列と数値が混ざっている配列で『数値』として最小値を取得する場合" do
       let(:array) { ["009", 104, "22222", 42, "3", 108] }
       let(:block) { -> (it) { it.to_i } }   # array.max_by { |it| it.to_i } と同等
 

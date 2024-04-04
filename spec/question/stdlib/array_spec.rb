@@ -905,7 +905,7 @@ RSpec.describe Array do
       it { is_expected.to eq ___ }
     end
 
-    xcontext "数値の文字列と数値が混ざっている配列で文字列として最小値を取得する場合" do
+    xcontext "数値の文字列と数値が混ざっている配列で『数値』として最小値を取得する場合" do
       let(:array) { ["009", 104, "22222", 42, "3", 108] }
       let(:block) { -> (it) { ___ } }   # array.min_by { |it| ___ } と同等
 
