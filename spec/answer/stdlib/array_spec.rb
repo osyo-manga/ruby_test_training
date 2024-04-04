@@ -872,4 +872,98 @@ RSpec.describe Array do
       it { is_expected.to eq ["an", "Homu", "Mado", "mami", "SAYA"] }
     end
   end
+
+  describe "#min" do
+    subject { array.min }
+
+    context "数値のみの配列の場合" do
+      let(:array) { [9, 1, 5, 7, 3, 2, 4, 10, 6, 8] }
+
+      it { is_expected.to eq 1 }
+    end
+
+    context "文字列のみの配列の場合" do
+      let(:array) { ["Homu", "mami", "Mado", "SAYA", "an"] }
+
+      it { is_expected.to eq "Homu" }
+    end
+
+    context "数値と文字列が混ざっている配列の場合" do
+      let(:array) { ["homu", 42, "mami", 108] }
+
+      it { expect { subject }.to raise_error(ArgumentError) }
+    end
+  end
+
+  describe "#min_by" do
+    subject { array.min_by(&block) }
+
+    context "文字列の長さの最小値を取得する場合" do
+      let(:array) { ["homuhomu", "mami", "an", "madomado", "saya"] }
+      let(:block) { -> (it) { it.length } }   # array.min_by { |it| it.length } と同等
+
+      it { is_expected.to eq "an" }
+    end
+
+    context "数値の文字列と数値が混ざっている配列で文字列として最大値を取得する場合" do
+      let(:array) { ["009", 104, "22222", 42, "3", 108] }
+      let(:block) { -> (it) { it.to_i } }   # array.max_by { |it| it.to_i } と同等
+
+      it { is_expected.to eq "3" }
+    end
+
+    context "数値の中の `0` の数が一番少ない数値を取得する場合" do
+      let(:array) { [100, 1000, 10, 10000] }
+      let(:block) { -> (it) { it.to_s.count("0") } }   # array.min_by { |it| it.to_s.count("0") } と同等
+
+      it { is_expected.to eq 10 }
+    end
+  end
+
+  describe "#max" do
+    subject { array.max }
+
+    context "数値のみの配列の場合" do
+      let(:array) { [9, 1, 5, 7, 3, 2, 4, 10, 6, 8] }
+
+      it { is_expected.to eq 10 }
+    end
+
+    context "文字列のみの配列の場合" do
+      let(:array) { ["Homu", "mami", "Mado", "SAYA", "an"] }
+
+      it { is_expected.to eq "mami" }
+    end
+
+    context "数値と文字列が混ざっている配列の場合" do
+      let(:array) { ["homu", 42, "mami", 108] }
+
+      it { expect { subject }.to raise_error(ArgumentError) }
+    end
+  end
+
+  describe "#max_by" do
+    subject { array.max_by(&block) }
+
+    context "文字列の長さの最大値を取得する場合" do
+      let(:array) { ["homuhomu", "mami", "an", "madomado", "saya"] }
+      let(:block) { -> (it) { it.length } }   # array.max_by { |it| it.length } と同等
+
+      it { is_expected.to eq "homuhomu" }
+    end
+
+    context "数値の文字列と数値が混ざっている配列で『文字列』として最大値を取得する場合" do
+      let(:array) { ["009", 104, "22222", 42, "3", 108] }
+      let(:block) { -> (it) { it.to_s } }   # array.max_by { |it| it.to_s } と同等
+
+      it { is_expected.to eq 42 }
+    end
+
+    context "`m` の数が一番多い文字列を取得する場合" do
+      let(:array) { ["homu", "mami", "mado", "an", "saya"] }
+      let(:block) { -> (it) { it.count("m") } }   # array.max_by { |it| it.count("m") } と同等
+
+      it { is_expected.to eq "mami" }
+    end
+  end
 end
