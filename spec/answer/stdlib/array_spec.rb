@@ -1005,4 +1005,26 @@ RSpec.describe Array do
       it { expect { subject }.to raise_error(TypeError) }
     end
   end
+
+  describe "#compact" do
+    subject { array.compact }
+
+    context "要素に nil が含まれている場合" do
+      let(:array) { [1, nil, 3, nil] }
+
+      it { is_expected.to eq [1, 3] }
+    end
+
+    context "要素に nil と false が含まれている場合" do
+      let(:array) { [1, nil, 3, false, nil] }
+
+      it { is_expected.to eq [1, 3, false] }
+    end
+
+    context "要素に nil が含まれていない場合" do
+      let(:array) { [1, 2, 3] }
+
+      it { is_expected.to eq [1, 2, 3] }
+    end
+  end
 end
