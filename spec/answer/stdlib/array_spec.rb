@@ -966,4 +966,43 @@ RSpec.describe Array do
       it { is_expected.to eq "mami" }
     end
   end
+
+  describe "#concat" do
+    subject { array.concat(*args) }
+
+    let(:array) { [1, 2] }
+
+    context "引数に配列を渡した場合" do
+      let(:args) { [["homu", "mami"]] }   # array.concat(["homu", "mami"]) と同等
+
+      it { is_expected.to eq [1, 2, "homu", "mami"] }
+      # array の値がどう変わるかを検証するテスト
+      # from に変更前の値を渡し、to に変更後の値を渡す
+      it { expect { subject }.to change { array }.from([1, 2]).to([1, 2, "homu", "mami"]) }
+    end
+
+    context "引数に複数の配列を渡した場合" do
+      let(:args) { [["homu", "mami"], ["mado", 0]] }   # array.concat(["homu", "mami"], ["mado", 0]) と同等
+
+      it { is_expected.to eq [1, 2, "homu", "mami", "mado", 0] }
+      # array の値がどう変わるかを検証するテスト
+      # from に変更前の値を渡し、to に変更後の値を渡す
+      it { expect { subject }.to change { array }.from([1, 2]).to([1, 2, "homu", "mami", "mado", 0]) }
+    end
+
+    context "引数に空の配列を渡した場合" do
+      let(:args) { [[]] }   # array.concat([]) と同等
+
+      it { is_expected.to eq [1, 2] }
+      # array の値がどう変わるかを検証するテスト
+      # from に変更前の値を渡し、to に変更後の値を渡す
+      it { expect { subject }.not_to change { array } }
+    end
+
+    context "引数に配列以外を渡した場合" do
+      let(:args) { [42] }   # array.concat(42) と同等
+
+      it { expect { subject }.to raise_error(TypeError) }
+    end
+  end
 end
