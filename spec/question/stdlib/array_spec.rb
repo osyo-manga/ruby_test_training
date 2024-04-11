@@ -947,21 +947,21 @@ RSpec.describe Array do
 
     xcontext "文字列の長さの最大値を取得する場合" do
       let(:array) { ["homuhomu", "mami", "an", "madomado", "saya"] }
-      let(:block) { -> (it) { ___ } }   # array.max_by { |it| it.length } と同等
+      let(:block) { -> (it) { ___ } }   # array.max_by { |it| ___ } と同等
 
       it { is_expected.to eq "homuhomu" }
     end
 
     xcontext "数値の文字列と数値が混ざっている配列で『文字列』として最大値を取得する場合" do
       let(:array) { ["009", 104, "22222", 42, "3", 108] }
-      let(:block) { -> (it) { ___ } }   # array.max_by { |it| it.to_s } と同等
+      let(:block) { -> (it) { ___ } }   # array.max_by { |it| ___ } と同等
 
       it { is_expected.to eq 42 }
     end
 
     xcontext "`m` の数が一番多い文字列を取得する場合" do
       let(:array) { ["homu", "mami", "mado", "an", "saya"] }
-      let(:block) { -> (it) { ___ } }   # array.max_by { |it| it.count("m") } と同等
+      let(:block) { -> (it) { ___ } }   # array.max_by { |it| ___ } と同等
 
       it { is_expected.to eq "mami" }
     end
