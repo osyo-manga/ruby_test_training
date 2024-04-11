@@ -1027,4 +1027,108 @@ RSpec.describe Array do
       it { is_expected.to eq [1, 2, 3] }
     end
   end
+
+  describe "#delete" do
+    subject { array.delete(*args, &block) }
+
+    context "0 の値を削除する場合" do
+      let(:array) { [0, 1, 2, 0, 3, 0, 4] }
+      let(:args) { [0] }   # array.delete(0) と同等
+      let(:block) { nil }
+
+      it { is_expected.to eq 0 }
+      # array の値がどう変わるかを検証するテスト
+      # to に変更後の値を渡す
+      it { expect { subject }.to change { array }.to [1, 2, 3, 4] }
+    end
+
+    context "nil の値を削除する場合" do
+      let(:array) { [nil, nil, 1, 2, nil, 3] }
+      let(:args) { [nil] }   # array.delete(nil) と同等
+      let(:block) { nil }
+
+      it { is_expected.to eq nil }
+      # array の値がどう変わるかを検証するテスト
+      # to に変更後の値を渡す
+      it { expect { subject }.to change { array }.to [1, 2, 3] }
+    end
+
+    context "削除する値がみつからなかった場合" do
+      let(:array) { [0, 1, 2, 0, 3, 0, 4] }
+
+      context "引数を渡した場合" do
+        let(:args) { [-1] }
+        let(:block) { nil }
+
+        it { is_expected.to eq nil }
+        it { expect { subject }.not_to change { array } }
+      end
+
+      context "ブロック引数を渡した場合" do
+        let(:args) { [-1] }
+        let(:block) { -> (it) { "みつからなかったよ" } }  # array.delete { |it| "みつからなかったよ" }
+
+        it { is_expected.to eq "みつからなかったよ" }
+        it { expect { subject }.not_to change { array } }
+      end
+    end
+  end
+
+  describe "#drop" do
+    subject { array.drop(n) }
+    let(:array) { [1, 2, 3, 4, 5] }
+
+    context "先頭3つ分を削除する場合" do
+      let(:n) { 3 }
+
+      it { is_expected.to eq [4, 5] }
+    end
+
+    context "先頭10つ分を削除する場合" do
+      let(:n) { 10 }
+
+      it { is_expected.to eq [] }
+    end
+
+    context "先頭0つ分を削除する場合" do
+      let(:n) { 0 }
+
+      it { is_expected.to eq [1, 2, 3, 4, 5] }
+    end
+
+    context "先頭-2つ分を削除する場合" do
+      let(:n) { -2 }
+
+      it { expect { subject }.to raise_error(ArgumentError) }
+    end
+  end
+
+  describe "#take" do
+    subject { array.take(n) }
+    let(:array) { [1, 2, 3, 4, 5] }
+
+    context "先頭3つ分を取得する場合" do
+      let(:n) { 3 }
+
+      it { is_expected.to eq [1, 2, 3] }
+    end
+
+    context "先頭10つ分を取得する場合" do
+      let(:n) { 10 }
+
+      it { is_expected.to eq [1, 2, 3, 4, 5] }
+    end
+
+    context "先頭0つ分を取得する場合" do
+      let(:n) { 0 }
+
+      it { is_expected.to eq [] }
+    end
+
+    context "先頭-2つ分を取得する場合" do
+      let(:n) { -2 }
+
+      it { expect { subject }.to raise_error(ArgumentError) }
+    end
+  end
 end
