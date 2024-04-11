@@ -1103,6 +1103,24 @@ RSpec.describe Array do
     end
   end
 
+  describe "#drop_while" do
+    subject { array.drop_while(&block) }
+
+    context "先頭から3以下の値を削除する場合" do
+      let(:array) { [3, 1, 2, 4, 2, 3, 5] }
+      let(:block) { -> (it) { it <= 3 } }   # array.drop_while { |it| it <= 3 }
+
+      it { is_expected.to eq [4, 2, 3, 5] }
+    end
+
+    context "先頭から奇数の値を削除する場合" do
+      let(:array) { [3, 1, 5, 2, 5, 4, 3] }
+      let(:block) { -> (it) { it.odd? } }   # array.drop_while { |it| it.odd? }
+
+      it { is_expected.to eq [2, 5, 4, 3] }
+    end
+  end
+
   describe "#take" do
     subject { array.take(n) }
     let(:array) { [1, 2, 3, 4, 5] }
@@ -1129,6 +1147,24 @@ RSpec.describe Array do
       let(:n) { -2 }
 
       it { expect { subject }.to raise_error(ArgumentError) }
+    end
+  end
+
+  describe "#take_while" do
+    subject { array.take_while(&block) }
+
+    context "先頭から3以下の値を取得する場合" do
+      let(:array) { [3, 1, 2, 4, 2, 3, 5] }
+      let(:block) { -> (it) { it <= 3 } }   # array.take_while { |it| it <= 3 }
+
+      it { is_expected.to eq [3, 1, 2] }
+    end
+
+    context "先頭から奇数の値を取得する場合" do
+      let(:array) { [3, 1, 5, 2, 5, 4, 3] }
+      let(:block) { -> (it) { it.odd? } }   # array.take_while { |it| it.odd? }
+
+      it { is_expected.to eq [3, 1, 5] }
     end
   end
 end
