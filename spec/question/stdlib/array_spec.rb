@@ -1206,4 +1206,18 @@ RSpec.describe Array do
       it { is_expected.to eq ___ }
     end
   end
+
+  xdescribe "#reverse" do
+    subject { array.reverse }
+
+    let(:array) { ["homu", "mami", 1] }
+
+    it { is_expected.to eq ___ }
+
+    xcontext "空の配列の場合" do
+      let(:array) { [] }
+
+      it { is_expected.to eq ___ }
+    end
+  end
 end
