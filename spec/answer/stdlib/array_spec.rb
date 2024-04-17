@@ -1167,4 +1167,43 @@ RSpec.describe Array do
       it { is_expected.to eq [3, 1, 5] }
     end
   end
+
+  describe "#flatten" do
+    subject { array.flatten(*args) }
+
+    context "配列内の深さが1の配列のみを平坦にする場合" do
+      let(:array) { [1, 2, [3, 4, [5, 6], 7], [[8, [9]], 10]] }
+      let(:args) { [1] }   # array.flatten(1) と同等
+
+      it { is_expected.to eq [1, 2, 3, 4, [5, 6], 7, [8, [9]], 10] }
+    end
+
+    context "配列内の深さが2の配列のみを平坦にする場合" do
+      let(:array) { [1, 2, [3, 4, [5, 6], 7], [[8, [9]], 10]] }
+      let(:args) { [2] }   # array.flatten(2) と同等
+
+      it { is_expected.to eq [1, 2, 3, 4, 5, 6, 7, 8, [9], 10] }
+    end
+
+    context "配列内の配列を全て平坦にする場合" do
+      let(:array) { [1, 2, [3, 4, [5, 6], 7], [[8, [9]], 10]] }
+      let(:args) { [] }   # array.flatten() と同等
+
+      it { is_expected.to eq [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+    end
+
+    context "0を渡した場合" do
+      let(:array) { [1, 2, [3, 4, [5, 6], 7], [[8, [9]], 10]] }
+      let(:args) { [0] }   # array.flatten(0) と同等
+
+      it { is_expected.to eq [1, 2, [3, 4, [5, 6], 7], [[8, [9]], 10]] }
+    end
+
+    context "負の値を渡した場合" do
+      let(:array) { [1, 2, [3, 4, [5, 6], 7], [[8, [9]], 10]] }
+      let(:args) { [-1] }   # array.flatten(-1) と同等
+
+      it { is_expected.to eq [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+    end
+  end
 end
