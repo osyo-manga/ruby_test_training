@@ -1220,4 +1220,52 @@ RSpec.describe Array do
       it { is_expected.to eq ___ }
     end
   end
+
+  describe "#pop" do
+    subject { array.pop(*args) }
+
+    let(:array) { [1, 2, 3] }
+
+    xcontext "引数を渡さなかった場合" do
+      let(:args) { [] }   # array.pop() と同等
+
+      it { is_expected.to eq ___ }
+      # array の値がどう変わるかを検証するテスト
+      # to に変更後の値を渡す
+      it { expect { subject }.to change { array }.to(___) }
+    end
+
+    xcontext "1つの要素を取り除く場合" do
+      let(:args) { [1] }   # array.pop(1) と同等
+
+      it { is_expected.to eq ___ }
+      # array の値がどう変わるかを検証するテスト
+      # to に変更後の値を渡す
+      it { expect { subject }.to change { array }.to(___) }
+    end
+
+    xcontext "2つの要素を取り除く場合" do
+      let(:args) { [2] }   # array.pop(2) と同等
+
+      it { is_expected.to eq ___ }
+      # array の値がどう変わるかを検証するテスト
+      # to に変更後の値を渡す
+      it { expect { subject }.to change { array }.to(___) }
+    end
+
+    xcontext "元の配列の数以上の要素を取り除く場合" do
+      let(:args) { [10] }   # array.pop(10) と同等
+
+      it { is_expected.to eq ___ }
+      # array の値がどう変わるかを検証するテスト
+      # to に変更後の値を渡す
+      it { expect { subject }.to change { array }.to(___) }
+    end
+
+    xcontext "負の値を渡した場合" do
+      let(:args) { [-2] }   # array.pop(-2) と同等
+
+      it { expect { subject }.to raise_error(___) }
+    end
+  end
 end
