@@ -1268,4 +1268,36 @@ RSpec.describe Array do
       it { expect { subject }.to raise_error(ArgumentError) }
     end
   end
+
+  describe "#shuffle" do
+    subject { array.shuffle(**kwargs) }
+
+    let(:array) { [1, 2, 3, 4, 5, 6] }
+
+    context "引数を渡さなかった場合" do
+      context "乱数を固定していない場合" do
+        let(:kwargs) { {} }   # array.shuffle() と同等
+
+        # 配列の順番は気にせずに配列の要素があっているかどうかをテストする
+        it { is_expected.to match_array [1, 2, 3, 4, 5, 6] }
+      end
+
+      context "乱数を固定している場合" do
+        let(:kwargs) { {} }   # array.shuffle() と同等
+        # 乱数を固定するために seed 値を設定した上でテストする
+        before { @tmp = srand(10) }
+        # before で設定した seed 値を戻す
+        after { srand(@tmp) }
+
+        it { is_expected.to eq [3, 6, 1, 4, 5, 2] }
+      end
+    end
+
+    context "random: 引数を渡した場合" do
+      let(:kwargs) { { random: random } }   # array.shuffle(random: random) と同等
+      let(:random) { Random.new(5) }
+
+      it { is_expected.to eq [6, 3, 5, 2, 1, 4] }
+    end
+  end
 end
