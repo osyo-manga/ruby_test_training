@@ -1146,7 +1146,7 @@ RSpec.describe Array do
     xcontext "先頭-2つ分を取得する場合" do
       let(:n) { -2 }
 
-      it { expect { subject }.to raise_error(ArgumentError) }
+      it { expect { subject }.to raise_error(___) }
     end
   end
 
