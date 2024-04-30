@@ -1352,4 +1352,40 @@ RSpec.describe Array do
       it { is_expected.to eq ___ }
     end
   end
+
+  describe "#grep" do
+    subject { array.grep(pattern) }
+
+    xcontext "先頭の文字が m の文字列のみを絞り込む" do
+      let(:array) { ["homu", "mami", "mado", "an"] }
+      let(:pattern) { ___ }
+
+      it { is_expected.to eq ["mami", "mado"] }
+    end
+
+    xcontext "https の ULR を絞り込む" do
+      let(:array) { ["https://docs.ruby-lang.org", "http://example.com", "https://www.ruby-lang.org"] }
+      let(:pattern) { ___ }
+
+      it { is_expected.to eq ["https://docs.ruby-lang.org", "https://www.ruby-lang.org"] }
+    end
+  end
+
+  describe "#grep_v" do
+    subject { array.grep_v(pattern) }
+
+    xcontext "先頭の文字が m でない文字列を絞り込む" do
+      let(:array) { ["homu", "mami", "mado", "an"] }
+      let(:pattern) { /^m/ }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "https でない ULR を絞り込む" do
+      let(:array) { ["https://docs.ruby-lang.org", "http://example.com", "https://www.ruby-lang.org"] }
+      let(:pattern) { /^https/ }
+
+      it { is_expected.to eq ___ }
+    end
+  end
 end
