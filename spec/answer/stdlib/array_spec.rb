@@ -1300,4 +1300,56 @@ RSpec.describe Array do
       it { is_expected.to eq [6, 3, 5, 2, 1, 4] }
     end
   end
+
+  describe "#sample" do
+    subject { array.sample(*args, **kwargs) }
+
+    let(:array) { [1, 2, 3, 4, 5, 6] }
+
+    # 乱数を固定するために seed 値を設定した上でテストする
+    before { @tmp = srand(10) }
+    # before で設定した seed 値を戻す
+    after { srand(@tmp) }
+
+    context "1つの要素のみを受け取る場合" do
+      # array.sample() と同等
+      let(:args) { [] }
+      let(:kwargs) { {} }
+
+      it { is_expected.to eq 2 }
+    end
+
+    context "3つの要素を受け取る場合" do
+      # array.sample(3) と同等
+      let(:args) { [3] }
+      let(:kwargs) { {} }
+
+      it { is_expected.to eq [2, 6, 5] }
+    end
+
+    context "random: 引数を渡した場合" do
+      # array.sample(random: random) と同等
+      let(:args) { [] }
+      let(:kwargs) { { random: random } }
+      let(:random) { Random.new(5) }
+
+      it { is_expected.to eq 4 }
+
+      context "2つの要素のみを受け取る場合" do
+        # array.sample(2, random: random) と同等
+        let(:args) { [3] }
+
+        it { is_expected.to eq [4, 1, 3] }
+      end
+    end
+
+    context "空の配列に対して呼び出した場合" do
+      let(:array) { [] }
+      # array.sample() と同等
+      let(:args) { [] }
+      let(:kwargs) { {} }
+
+      it { is_expected.to eq nil }
+    end
+  end
 end
