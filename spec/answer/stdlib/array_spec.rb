@@ -1337,9 +1337,9 @@ RSpec.describe Array do
 
       context "2つの要素のみを受け取る場合" do
         # array.sample(2, random: random) と同等
-        let(:args) { [3] }
+        let(:args) { [2] }
 
-        it { is_expected.to eq [4, 1, 3] }
+        it { is_expected.to eq [4, 1] }
       end
     end
 
