@@ -1388,4 +1388,36 @@ RSpec.describe Array do
       it { is_expected.to eq ["http://example.com"] }
     end
   end
+
+  describe "#uniq" do
+    subject { array.uniq(&block) }
+
+    context "重複する要素が複数ある場合" do
+      let(:array) { [4, 1, 1, 3, 2, 2, 3, 4] }
+      let(:block) { nil }
+
+      it { is_expected.to eq [4, 1, 3, 2] }
+    end
+
+    context "文字列と数値が混ざっている場合" do
+      let(:array) { [1, "2", 3, "1", "3"] }
+      let(:block) { nil }
+
+      it { is_expected.to eq [1, "2", 3, "1", "3"] }
+    end
+
+    context "文字列として判定する場合" do
+      let(:array) { [1, "2", 3, "1", "3"] }
+      let(:block) { -> (it) { it.to_s } }
+
+      it { is_expected.to eq [1, "2", 3] }
+    end
+
+    context "要素の文字数で判定する場合" do
+      let(:array) { ["homu", "mami", "madomado", "an"] }
+      let(:block) { -> (it) { it.length } }
+
+      it { is_expected.to eq ["homu", "madomado", "an"] }
+    end
+  end
 end

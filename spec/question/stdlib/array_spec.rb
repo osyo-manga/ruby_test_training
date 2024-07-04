@@ -1390,6 +1390,34 @@ RSpec.describe Array do
   end
 
   describe "#uniq" do
+    subject { array.uniq(&block) }
 
+    xcontext "重複する要素が複数ある場合" do
+      let(:array) { [4, 1, 1, 3, 2, 2, 3, 4] }
+      let(:block) { nil }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "文字列と数値が混ざっている場合" do
+      let(:array) { [1, "2", 3, "1", "3"] }
+      let(:block) { nil }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "文字列として判定する場合" do
+      let(:array) { [1, "2", 3, "1", "3"] }
+      let(:block) { -> (it) { it.to_s } }
+
+      it { is_expected.to eq ___ }
+    end
+
+    xcontext "要素の文字数で判定する場合" do
+      let(:array) { ["homu", "mami", "madomado", "an"] }
+      let(:block) { -> (it) { it.length } }
+
+      it { is_expected.to eq ___ }
+    end
   end
 end
